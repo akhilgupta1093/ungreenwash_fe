@@ -1,0 +1,35 @@
+.body {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+}
+
+.section {
+    margin: 10px;
+}
+
+.adjustments {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.filter {
+    width: 30%;
+    margin: 10px;
+    right: 0;
+}
+
+.question {
+    width: 80%;
+    margin: 10px;
+}
+  
+.overlay-box {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    color: white; background: #666666; opacity: .8;
+    z-index: 1000;
+}
