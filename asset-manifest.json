@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ungreenwash_fe/static/css/main.ca08836c.css",
+    "main.js": "/ungreenwash_fe/static/js/main.e31f6199.js",
+    "index.html": "/ungreenwash_fe/index.html",
+    "main.ca08836c.css.map": "/ungreenwash_fe/static/css/main.ca08836c.css.map",
+    "main.e31f6199.js.map": "/ungreenwash_fe/static/js/main.e31f6199.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca08836c.css",
+    "static/js/main.e31f6199.js"
+  ]
+}
