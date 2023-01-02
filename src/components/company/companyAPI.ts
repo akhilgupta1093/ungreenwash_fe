@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { getURL } from '../../apis/routes';
 
 export function apiGetFullText(company: string, filename: string) {
     try {
-        const response = axios.get(`http://localhost:8000/api/file/${company}/${filename}`);
+        const response = axios.get(getURL(`/api/file/${company}/${filename}`));
         return response;
     } catch (error) {
         console.error(error);

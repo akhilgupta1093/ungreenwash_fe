@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getURL } from '../../apis/routes';
 
 const questions = [
     "What does this company do?", 
@@ -14,7 +15,7 @@ const mockQuestions = [
 
 export function apiGetCompanies() {
     try {
-        const response = axios.get(`http://localhost:8000/api/companies/`);
+        const response = axios.get(getURL('/api/companies/'));
         //const response = {"data": ["Ford", "Fisker", "General Mills", "Pepsi"]}
         return response;
     } catch (error) {
@@ -28,9 +29,8 @@ export function apiGetBaseQAs(question: string, companies: string[]) {
         return ret;
     }
 
-
     try {
-        const response = axios.post(`http://localhost:8000/api/query/batch`, {
+        const response = axios.post(getURL('/api/query/batch'), {
             companies: companies,
             questions: [question],
         });

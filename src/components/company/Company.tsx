@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import * as fs from 'fs';
-import { fullText, getFullText } from './companySlice';
+import { fullText, getFullText, setFullText } from './companySlice';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -42,7 +42,11 @@ const modalStyle = {
 export function Company({ company, question, answer, filename }: CompanyProps) {
     const dispatch = useAppDispatch();
     const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        dispatch(setFullText(""));
+        setModalSubtext("");
+    }
     const [modalSubext, setModalSubtext] = useState("")
 
     const returnedFullText = useAppSelector(fullText)
@@ -55,8 +59,8 @@ export function Company({ company, question, answer, filename }: CompanyProps) {
 
     function handleClickAnswer() {
         setOpen(true);
-        setModalSubtext(answer);
         dispatch(getFullText({company, filename}));
+        setModalSubtext(answer);
     }
 
     useEffect(() => {
@@ -78,7 +82,7 @@ export function Company({ company, question, answer, filename }: CompanyProps) {
         return (
             <div>
                 {before_subtext}
-                <span ref={myRef} className="highlighted">{subtext}</span>
+                <span ref={myRef} className="highlighted">{text != "" && subtext}</span>
                 {after_subtext}
             </div>
         );

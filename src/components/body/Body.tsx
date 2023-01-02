@@ -9,12 +9,15 @@ import { Filter } from '../filter/Filter';
 import { QuestionInput } from '../questionInput/QuestionInput';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
+import Backdrop from '@mui/material/Backdrop';
+import { Loading } from '../loading/Loading';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getBaseQAs, baseQAs, isLoadingState } from './bodySlice';
 import { selectedCompanies } from '../filter/filterSlice';
 import { selectQuestion, setQuestion } from '../questionInput/questionSlice';
+
 
 export function Body() {
     const dispatch = useAppDispatch();
@@ -37,7 +40,7 @@ export function Body() {
 
     return (
     <div className="body">
-
+        <Loading isLoading={isLoading} />
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={handleChange} aria-label="tabsf" centered>
                 <Tab label="My Companies" />
@@ -46,9 +49,9 @@ export function Body() {
         </Box>
         {(tab === 0) ? 
             <div>
-                <div className='overlay-box'>
+                {/* <div className='overlay-box'>
                     {isLoading ? <CircularProgress /> : null}
-                </div>
+                </div> */}
                 <div className="section">
                     <div className="filter">
                         <Filter />
