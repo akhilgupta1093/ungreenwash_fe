@@ -31,7 +31,7 @@ const modalStyle = {
     left: '50%',
     overflow: 'auto',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     height: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -70,7 +70,7 @@ export function Company({ company, question, answer, filename }: CompanyProps) {
     const myRef = useRef<null | HTMLDivElement>(null)
     const executeScroll = () => {
         // Do scrollTo, but with an offset of 10
-        myRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+        myRef.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' })
     }
 
     // Given a long string and a substring, return a tsx element with the substring highlighted
@@ -80,7 +80,7 @@ export function Company({ company, question, answer, filename }: CompanyProps) {
         let before_subtext = text.substring(0, subtext_index);
         let after_subtext = text.substring(subtext_index + subtext_length);
         return (
-            <div>
+            <div className="full-text">
                 {before_subtext}
                 <span ref={myRef} className="highlighted">{text != "" && subtext}</span>
                 {after_subtext}
@@ -92,9 +92,9 @@ export function Company({ company, question, answer, filename }: CompanyProps) {
         <div className="company">
             <Card sx={{maxWidth: 250, maxHeight: 250, height: 250, width: 250, padding: 3}}>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Link href={"/company_profile/" + company} variant="h5" sx={{color: "black"}}>
                         {company}
-                    </Typography>
+                    </Link>
                 </CardContent>
                 <Typography>
                     {question}

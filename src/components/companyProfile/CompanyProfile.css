@@ -1,0 +1,9 @@
+.file-text {
+    font-size: 12px;
+    white-space: pre-wrap;
+    overflow: auto;
+    padding: 10px;
+    margin: auto;
+    max-height: 65vh;
+    width: 80%;
+}

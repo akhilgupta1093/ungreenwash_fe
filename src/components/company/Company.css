@@ -4,4 +4,9 @@
 
 .highlighted {
     background-color: #FFFF00;
+    white-space: pre-wrap;
+}
+
+.full-text {
+    white-space: pre-wrap;
 }

@@ -15,20 +15,12 @@ import { Loading } from '../loading/Loading';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getBaseQAs, baseQAs, isLoadingState } from './bodySlice';
-import { selectedCompanies } from '../filter/filterSlice';
-import { selectQuestion, setQuestion } from '../questionInput/questionSlice';
+
 
 
 export function Body() {
     const dispatch = useAppDispatch();
     const [tab, setTab] = React.useState(0);
-
-    const companies = useAppSelector(selectedCompanies)
-    const question = useAppSelector(selectQuestion)
-
-    function getAnswers() {
-        dispatch(getBaseQAs({question, companies}));
-    }
 
     const baseCompanyQAs = useAppSelector(baseQAs);
 
@@ -41,27 +33,23 @@ export function Body() {
     return (
     <div className="body">
         <Loading isLoading={isLoading} />
+        <div className="section">
+            <div className="filter">
+                <Filter />
+            </div>
+        </div>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={handleChange} aria-label="tabsf" centered>
-                <Tab label="My Companies" />
-                <Tab label="Coming Soon..." disabled={true}/>
+                <Tab label="Free Search" />
+                <Tab label="Disclosure Frameworks" disabled={true}/>
             </Tabs>
         </Box>
         {(tab === 0) ? 
             <div>
-                {/* <div className='overlay-box'>
-                    {isLoading ? <CircularProgress /> : null}
-                </div> */}
-                <div className="section">
-                    <div className="filter">
-                        <Filter />
-                    </div>
-                </div>
                 <div className="section adjustments">
                     <div className="question">
                         <QuestionInput />
                     </div>
-                    <Button onClick={getAnswers}>Generate Answers</Button>
                 </div>
                 
                 <div className="section">

@@ -19,6 +19,19 @@ header {
     color: black;
     font-weight: bold;
     font-size: 30px;
-    text-align: "left";
+    text-align: left;
     margin-left: 20px;
+    width: 50%;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.links > a {
+    color: black;
+    font-size: 20px;
+    margin: 0 10px;
 }

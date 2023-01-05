@@ -5,6 +5,21 @@ import { useEffect } from 'react';
 import { getCompanies, companyOptions, changeSelectedCompanies } from './filterSlice';
 import Select, { StylesConfig } from 'react-select'
 
+const selectStyles = {
+    container: (base: any) => ({
+      ...base,
+      zIndex: 100
+    }),
+    multiValue: (base: any) => ({
+        ...base,
+        backgroundColor: "#000000",
+        color: "#ffffff",
+    }),
+    multiValueLabel: (base: any) => ({
+        ...base,
+        color: "#ffffff",
+    }),
+  };
 
 export function Filter() {
     const dispatch = useAppDispatch();
@@ -30,12 +45,14 @@ export function Filter() {
     return (
     <div>
         <Select 
+            styles={selectStyles}
             closeMenuOnSelect={false}
             options={display_companies} 
             onChange={handleChange}
             isMulti
             menuPlacement="auto"
             menuPosition="fixed"
+            placeholder={"Select Companies..."}
         />
     </div>
     );
