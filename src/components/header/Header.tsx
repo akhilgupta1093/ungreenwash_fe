@@ -13,8 +13,8 @@ export function Header() {
                 </div>
 
                 <div className="links">
-                    <a href="/">Home</a>
-                    <a href="/about">About</a>
+                    <a href="/ungreenwash_fe/#/">Home</a>
+                    <a href="/ungreenwash_fe/#/about">About</a>
                 </div>
             </Toolbar>
         </AppBar>
