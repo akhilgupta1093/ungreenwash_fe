@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import './Filter.css'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getCompanies, companyOptions, changeSelectedCompanies } from './filterSlice';
 import Select, { StylesConfig } from 'react-select'
+import Button from '@mui/material/Button';
 
 const selectStyles = {
     container: (base: any) => ({
@@ -43,17 +45,25 @@ export function Filter() {
     }
 
     return (
-    <div>
-        <Select 
-            styles={selectStyles}
-            closeMenuOnSelect={false}
-            options={display_companies} 
-            onChange={handleChange}
-            isMulti
-            menuPlacement="auto"
-            menuPosition="fixed"
-            placeholder={"Select Companies..."}
-        />
+    <div className="filter-parent">
+        <div className="company-dropdown">
+            <Select 
+                styles={selectStyles}
+                closeMenuOnSelect={false}
+                options={display_companies} 
+                onChange={handleChange}
+                isMulti
+                menuPlacement="auto"
+                menuPosition="fixed"
+                placeholder={"Select Companies..."}
+            />
+        </div>
+
+        <div className="more-settings">
+            <Button>
+                More Settings
+            </Button>
+        </div>
     </div>
     );
 }

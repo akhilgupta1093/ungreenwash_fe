@@ -1,0 +1,11 @@
+.filter-parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.company-dropdown {
+    width: 100%;
+    height: 100%;
+}

@@ -20,15 +20,11 @@ import { getBaseQAs, baseQAs, isLoadingState } from './bodySlice';
 
 export function Body() {
     const dispatch = useAppDispatch();
-    const [tab, setTab] = React.useState(0);
 
     const baseCompanyQAs = useAppSelector(baseQAs);
 
     const isLoading = useAppSelector(isLoadingState);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setTab(newValue);
-    };
 
     return (
     <div className="body">
@@ -38,30 +34,17 @@ export function Body() {
                 <Filter />
             </div>
         </div>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tab} onChange={handleChange} aria-label="tabsf" centered>
-                <Tab label="Free Search" />
-                <Tab label="Disclosure Frameworks" disabled={true}/>
-            </Tabs>
-        </Box>
-        {(tab === 0) ? 
-            <div>
-                <div className="section adjustments">
-                    <div className="question">
-                        <QuestionInput />
-                    </div>
+        <div>
+            <div className="section adjustments">
+                <div className="question">
+                    <QuestionInput />
                 </div>
-                
-                <div className="section">
-                    <Companies companies={baseCompanyQAs} />      
-                </div>          
             </div>
-        : 
-            <div>
-                <h1>Other Tab</h1>
-            </div>
-        
-        }
+            
+            <div className="section">
+                <Companies companies={baseCompanyQAs} />      
+            </div>          
+        </div>
         
     </div>
     );
