@@ -3,11 +3,13 @@ import { RootState, AppThunk } from '../../app/store';
 
 export interface SettingsState {
   compare: boolean;
+  modal: boolean;
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: SettingsState = {
   compare: false,
+  modal: false,
   status: 'idle',
 };
 
@@ -17,13 +19,17 @@ export const settingsSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     // Define a reducer for the selected companies
-    toggleCompare: (state) => {
-      state.compare = !state.compare;
-    }
+    setCompare: (state, action: PayloadAction<boolean>) => {
+        state.compare = action.payload;
+    },
+    setModal: (state, action: PayloadAction<boolean>) => {
+        state.modal = action.payload;
+    },
   },
 });
 
-export const { toggleCompare } = settingsSlice.actions;
-export const compare = (state: RootState) => state.settings.compare;
+export const { setCompare, setModal } = settingsSlice.actions;
+export const selectModal = (state: RootState) => state.settings.modal;
+export const selectCompare = (state: RootState) => state.settings.compare;
 
 export default settingsSlice.reducer;

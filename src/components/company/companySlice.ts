@@ -3,12 +3,13 @@ import { RootState, AppThunk } from '../../app/store';
 import { apiGetFullText } from './companyAPI';
 
 export interface BodyState {
-  fullText: string;
+  // Store fileTexts as a map of filename to fullText
+  fileTexts: {filename: string, fullText: string}[];
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: BodyState = {
-    fullText: "",
+    fileTexts: [],
     status: 'idle',
 };
 
@@ -38,7 +39,7 @@ export const companySlice = createSlice({
       })
       .addCase(getFullText.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.fullText = action.payload;
+        state.fileTexts.push({filename: action.meta.arg.filename, fullText: action.payload});
       })
       .addCase(getFullText.rejected, (state) => {
         state.status = 'failed';

@@ -2,7 +2,7 @@ import './Companies.css';
 import { Company } from '../company/Company';
 import { CompanyProps }  from '../company/Company';
 
-interface CompaniesProps {
+export interface CompaniesProps {
     companies: CompanyProps[],
 }
 
@@ -15,9 +15,7 @@ export function Companies({ companies }: CompaniesProps) {
                     key={index}
                     company={company.company} 
                     question={company.question} 
-                    answer={company.answer}
-                    filename={company.filename}
-                    score={company.score}
+                    responses={company.responses}
                 />
             ))}
         </div>

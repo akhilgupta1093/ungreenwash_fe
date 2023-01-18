@@ -16,7 +16,6 @@ const mockQuestions = [
 export function apiGetCompanies() {
     try {
         const response = axios.get(getURL('/api/companies/'));
-        //const response = {"data": ["Ford", "Fisker", "General Mills", "Pepsi"]}
         return response;
     } catch (error) {
         console.error(error);
@@ -38,42 +37,4 @@ export function apiGetBaseQAs(question: string, companies: string[]) {
     } catch (error) {
         console.error(error);
     }
-
-    // var ret: any = {"data": [
-    //     {
-    //         "filename": "F_0000037996-22-000013_pooled.txt",
-    //         "company": "Ford",
-    //         "question": "What does this company do?",
-    //         "answer": "The corporate governance information on our website includes our Corporate Governance Principles, Code of Ethics for Senior Financial Personnel, Code of Ethics for the Board of Directors, Code of Corporate Conduct for all employees, and the Charters for each of the Committees of our Board of Directors.",
-    //         "score": 0.56
-    //     },
-    //     {
-    //         "filename": "F_0000037996-22-000013_pooled.txt",
-    //         "company": "Ford",
-    //         "question": "What does this company do?",
-    //         "answer": "The corporate governance information on our website includes our Corporate Governance Principles, Code of Ethics for Senior Financial Personnel, Code of Ethics for the Board of Directors, Code of Corporate Conduct for all employees, and the Charters for each of the Committees of our Board of Directors.",
-    //         "score": 0.56
-    //     },
-    //     {
-    //         "filename": "F_0000037996-22-000013_pooled.txt",
-    //         "company": "Ford",
-    //         "question": "What does this company do?",
-    //         "answer": "The corporate governance information on our website includes our Corporate Governance Principles, Code of Ethics for Senior Financial Personnel, Code of Ethics for the Board of Directors, Code of Corporate Conduct for all employees, and the Charters for each of the Committees of our Board of Directors.",
-    //         "score": 0.56
-    //     }
-    // ]}
-
-    // return ret;
 }
-
-/*
-export interface CompanyProps {
-    filename: string,
-    id: string,
-    company: string,
-    question: string,
-    answer: string,
-    score: number,
-}
-*/
-  

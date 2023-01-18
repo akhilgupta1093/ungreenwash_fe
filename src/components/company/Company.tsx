@@ -18,11 +18,16 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 const max_answer_length = 200;
 
 export interface CompanyProps {
-    filename: string,
     company: string,
     question: string,
+    responses: Response[],
+}
+
+export interface Response {
     answer: string,
     score: number,
+    filename: string,
+    id: string,
 }
 
 const modalStyle = {
@@ -31,15 +36,20 @@ const modalStyle = {
     left: '50%',
     overflow: 'auto',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: 400,
+    width: '50vw',
+    height: '50vh',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
   };
 
-export function Company({ company, question, answer, filename }: CompanyProps) {
+export function Company({ company, question, responses }: CompanyProps) {
+    let response = responses[0];
+    let answer = response.answer;
+    let score = response.score;
+    let filename = response.filename;
+
     const dispatch = useAppDispatch();
     const [open, setOpen] = useState(false);
     const handleClose = () => {

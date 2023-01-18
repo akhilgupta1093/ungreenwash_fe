@@ -33,7 +33,7 @@ export function QuestionInput() {
 
     return (
     <div style={{display: 'flex'}}>
-        <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%"}} onKeyDown={keyPress} />
+        <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%", backgroundColor: "white"}} onKeyDown={keyPress} />
         <Button style={{marginLeft: "10px"}} onClick={getAnswers}>Submit</Button>
     </div>
     );

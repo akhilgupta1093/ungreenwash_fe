@@ -1,0 +1,19 @@
+.company-result  {
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow: auto;
+    padding: 10px;
+    margin: auto;
+    max-height: 65vh;
+    width: 80%;
+    background-color: white;
+}
+
+.highlight {
+    background-color: #fffb00;
+}
+
+.current-highlight {
+    background-color: #be4600;
+    color: white;
+}

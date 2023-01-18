@@ -4,6 +4,8 @@ import './Filter.css'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getCompanies, companyOptions, changeSelectedCompanies } from './filterSlice';
+import { setModal } from '../settings/settingsSlice';
+import { Settings } from '../settings/Settings';
 import Select, { StylesConfig } from 'react-select'
 import Button from '@mui/material/Button';
 
@@ -60,10 +62,11 @@ export function Filter() {
         </div>
 
         <div className="more-settings">
-            <Button>
+            <Button onClick={() => {dispatch(setModal(true))}}>
                 More Settings
             </Button>
         </div>
+        <Settings />
     </div>
     );
 }

@@ -11,10 +11,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
 import { Loading } from '../loading/Loading';
+import { CompanyResults } from '../companyResults/CompanyResults';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getBaseQAs, baseQAs, isLoadingState } from './bodySlice';
+import { selectCompare } from '../settings/settingsSlice';
 
 
 
@@ -22,6 +24,7 @@ export function Body() {
     const dispatch = useAppDispatch();
 
     const baseCompanyQAs = useAppSelector(baseQAs);
+    const comparisonMode = useAppSelector(selectCompare);
 
     const isLoading = useAppSelector(isLoadingState);
 
@@ -41,9 +44,15 @@ export function Body() {
                 </div>
             </div>
             
-            <div className="section">
-                <Companies companies={baseCompanyQAs} />      
-            </div>          
+            {comparisonMode ? 
+                <div className="section">
+                    <Companies companies={baseCompanyQAs} />      
+                </div>
+            : 
+                <div className="section">
+                    <CompanyResults companies={baseCompanyQAs} />
+                </div>
+            }        
         </div>
         
     </div>
