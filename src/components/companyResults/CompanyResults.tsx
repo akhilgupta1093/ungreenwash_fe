@@ -45,19 +45,6 @@ export function CompanyResults({ companies }: CompaniesProps) {
         setFileArray(filenamesArray);
     }
 
-    // When the data or file array changes (i.e. initially), scroll to the first response
-    useEffect(() => {
-        if (!companies[tab] || !fileArray[fileTab]) {
-            return;
-        }
-        for (let i = 0; i < companies[tab].responses.length; i++) {
-            if (companies[tab].responses[i].filename == fileArray[fileTab]) {
-                setScrollId(companies[tab].responses[i].id);
-                break;
-            }
-        }
-    }, [companies, fileArray])
-
     // When the data, company tab, file array, or file tab changes, get the text of the file
     useEffect(() => {
         if (!companies[tab] || !fileArray[fileTab]) {

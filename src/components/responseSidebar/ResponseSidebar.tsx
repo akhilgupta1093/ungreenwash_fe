@@ -24,6 +24,14 @@ export function ResponseSidebar({ responses, setFileTab, fileArray, setScrollId 
         }
     }, [currItem, responses])
 
+    // setScrollId to the first id when the responses change
+    useEffect(() => {
+        if (responses.length > 0) {
+            setScrollId(responses[0].id);
+            setCurrItem(responses[0].id);
+        }
+    }, [responses])
+
 
     // When a user clicks on an item, set the currItem to that item id
     // Change style based on whether the item is the currItem
