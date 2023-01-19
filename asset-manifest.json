@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ungreenwash_fe/static/css/main.2d868142.css",
-    "main.js": "/ungreenwash_fe/static/js/main.940b039e.js",
+    "main.js": "/ungreenwash_fe/static/js/main.c02e7832.js",
     "static/media/juan.jpeg": "/ungreenwash_fe/static/media/juan.28fcb16180aa629c184f.jpeg",
     "static/media/akhil.jpeg": "/ungreenwash_fe/static/media/akhil.15d784c3c26e2c37f8fc.jpeg",
     "static/media/christina.jpeg": "/ungreenwash_fe/static/media/christina.f30a1011500109907b1c.jpeg",
@@ -10,10 +10,10 @@
     "static/media/coleman.jpeg": "/ungreenwash_fe/static/media/coleman.16caebd6fd42b3f996fb.jpeg",
     "index.html": "/ungreenwash_fe/index.html",
     "main.2d868142.css.map": "/ungreenwash_fe/static/css/main.2d868142.css.map",
-    "main.940b039e.js.map": "/ungreenwash_fe/static/js/main.940b039e.js.map"
+    "main.c02e7832.js.map": "/ungreenwash_fe/static/js/main.c02e7832.js.map"
   },
   "entrypoints": [
     "static/css/main.2d868142.css",
-    "static/js/main.940b039e.js"
+    "static/js/main.c02e7832.js"
   ]
 }
