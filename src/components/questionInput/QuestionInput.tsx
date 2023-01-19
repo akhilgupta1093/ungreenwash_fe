@@ -7,7 +7,8 @@ import { selectedCompanies } from '../filter/filterSlice';
 import { getBaseQAs } from '../body/bodySlice';
 
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import IconButton from '@mui/material/IconButton';
 
 
 export function QuestionInput() {
@@ -33,8 +34,10 @@ export function QuestionInput() {
 
     return (
     <div style={{display: 'flex'}}>
-        <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%"}} onKeyDown={keyPress} />
-        <Button style={{marginLeft: "10px"}} onClick={getAnswers}>Submit</Button>
+        <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%", backgroundColor: "white"}} onKeyDown={keyPress} />
+        <IconButton style={{marginLeft: "10px"}} onClick={getAnswers}>
+            <SendIcon color="primary"/>
+        </IconButton>
     </div>
     );
 }

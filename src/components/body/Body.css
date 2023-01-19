@@ -1,11 +1,20 @@
 .body {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     overflow: auto;
 }
 
+body {
+    background-color: linear-gradient(rgb(249,248,247),rgb(251,250,248) 46px,rgb(251,251,249) 120px,rgb(248,247,245) 35%,rgb(249,248,246));
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
 .section {
-    margin: 10px;
+    margin: 10px 0px;
 }
 
 .adjustments {
@@ -15,7 +24,7 @@
 }
 
 .filter {
-    width: 30%;
+    width: 50%;
     margin: 10px;
     right: 0;
 }
