@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import * as fs from 'fs';
-import { fullText, getFullText, setFullText } from './companySlice';
+import { fileTexts, getFileTexts } from './companySlice';
 import { HighlightWithinTextarea } from 'react-highlight-within-textarea'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -44,6 +44,15 @@ const modalStyle = {
     p: 4,
   };
 
+export function getFileText(filename: string, fileTexts: {filename: string, fullText: string}[]) {
+    let fileText = fileTexts.find(fileText => fileText.filename == filename);
+    if (fileText) {
+        return fileText.fullText;
+    } else {
+        return "";
+    }
+}
+
 export function Company({ company, question, responses }: CompanyProps) {
     let response = responses[0];
     let answer = response.answer;
@@ -52,14 +61,15 @@ export function Company({ company, question, responses }: CompanyProps) {
 
     const dispatch = useAppDispatch();
     const [open, setOpen] = useState(false);
+    const [returnedFullText, setReturnedFullText] = useState("");
     const handleClose = () => {
         setOpen(false);
-        dispatch(setFullText(""));
+        setReturnedFullText("");
         setModalSubtext("");
     }
-    const [modalSubext, setModalSubtext] = useState("")
+    const [modalSubtext, setModalSubtext] = useState("")
 
-    const returnedFullText = useAppSelector(fullText)
+    const returnedFileTexts = useAppSelector(fileTexts);
 
     // cut off the answer if it's too long, and add a "..." at the end
     let display_answer = answer;
@@ -69,13 +79,17 @@ export function Company({ company, question, responses }: CompanyProps) {
 
     function handleClickAnswer() {
         setOpen(true);
-        dispatch(getFullText({company, filename}));
+        dispatch(getFileTexts({company, filename}));
         setModalSubtext(answer);
     }
 
     useEffect(() => {
+        setReturnedFullText(getFileText(filename, returnedFileTexts));
+    }, [returnedFileTexts])
+
+    useEffect(() => {
         executeScroll();
-    }, [returnedFullText])
+    }, [returnedFileTexts, returnedFullText, open])
 
     const myRef = useRef<null | HTMLDivElement>(null)
     const executeScroll = () => {
@@ -126,7 +140,7 @@ export function Company({ company, question, responses }: CompanyProps) {
                     <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight="bold">
                         {filename}
                     </Typography>
-                    {highlightSubtext(returnedFullText, modalSubext)}                
+                    {highlightSubtext(returnedFullText, modalSubtext)}                
                 </Box>
             </Modal>
         </div>

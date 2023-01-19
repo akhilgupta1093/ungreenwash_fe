@@ -11,15 +11,16 @@ function App() {
   return (
     <HashRouter basename='/'>
       <div className="App">
-        <header className="App-header">
+        <div className="App-header">
           <Header />
-
+        </div>
+        <div className="App-body">
           <Routes>
             <Route path="/" element={<Body />} />
             <Route path="/about" element={<About />} />
             <Route path="/company_profile/:company" element={<CompanyProfile />} />
           </Routes>
-        </header>
+        </div>
       </div>
     </HashRouter>
   );

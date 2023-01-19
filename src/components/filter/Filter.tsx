@@ -7,7 +7,8 @@ import { getCompanies, companyOptions, changeSelectedCompanies } from './filterS
 import { setModal } from '../settings/settingsSlice';
 import { Settings } from '../settings/Settings';
 import Select, { StylesConfig } from 'react-select'
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const selectStyles = {
     container: (base: any) => ({
@@ -62,9 +63,9 @@ export function Filter() {
         </div>
 
         <div className="more-settings">
-            <Button onClick={() => {dispatch(setModal(true))}}>
-                More Settings
-            </Button>
+            <IconButton onClick={() => {dispatch(setModal(true))}}>
+                <SettingsIcon color="primary"/>
+            </IconButton>
         </div>
         <Settings />
     </div>

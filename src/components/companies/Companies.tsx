@@ -1,4 +1,5 @@
 import './Companies.css';
+import React from 'react';
 import { Company } from '../company/Company';
 import { CompanyProps }  from '../company/Company';
 

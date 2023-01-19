@@ -1,16 +1,16 @@
 
 import './CompanyResults.css';
 import React, { useState, useRef, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CompaniesProps }  from '../companies/Companies';
-import { ResponseSidebar } from 'components/responseSidebar/ResponseSidebar';
+import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
 
-import { fullText, getFullText, setFullText } from '../company/companySlice';
-import { CompanyProps, Response } from 'components/company/Company';
+import { fileTexts, getFileTexts } from '../company/companySlice';
+import { CompanyProps, Response, getFileText } from '../company/Company';
 
 
 export function CompanyResults({ companies }: CompaniesProps) {
@@ -19,21 +19,16 @@ export function CompanyResults({ companies }: CompaniesProps) {
     const [tab, setTab] = React.useState(0);
     const [fileTab, setFileTab] = React.useState(0);
     const [scrollId, setScrollId] = useState<string>("");
+    const [returnedFullText, setReturnedFullText] = useState<string>("");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTab(newValue);
     };
     const handleFileChange = (event: React.SyntheticEvent, newValue: number) => {
         setFileTab(newValue);
     };
-    const returnedFullText = useAppSelector(fullText);
+    const returnedFileTexts = useAppSelector(fileTexts);
 
-    useEffect(() => {
-        if (companies[tab] && fileArray[fileTab]) {
-            dispatch(getFullText({'company': companies[tab].company, 'filename': fileArray[fileTab]}));
-            setFilesFromCompany(companies[tab]);
-        }
-    }, [])
-
+    // Every time the tab or data changes, update the fileArray 
     useEffect(() => {
         if (companies[tab]) {
             setFilesFromCompany(companies[tab]);
@@ -50,29 +45,43 @@ export function CompanyResults({ companies }: CompaniesProps) {
         setFileArray(filenamesArray);
     }
 
+    // When the data or file array changes (i.e. initially), scroll to the first response
     useEffect(() => {
-        if (companies[tab] && fileArray[fileTab]) {
-            dispatch(getFullText({'company': companies[tab].company, 'filename': fileArray[fileTab]}));
-
-            // iterate through companies[tab].responses and find the first response with the correct filename
-            for (let i = 0; i < companies[tab].responses.length; i++) {
-                if (companies[tab].responses[i].filename == fileArray[fileTab]) {
-                    setScrollId(companies[tab].responses[i].id);
-                    break;
-                }
+        if (!companies[tab] || !fileArray[fileTab]) {
+            return;
+        }
+        for (let i = 0; i < companies[tab].responses.length; i++) {
+            if (companies[tab].responses[i].filename == fileArray[fileTab]) {
+                setScrollId(companies[tab].responses[i].id);
+                break;
             }
         }
+    }, [companies, fileArray])
+
+    // When the data, company tab, file array, or file tab changes, get the text of the file
+    useEffect(() => {
+        if (!companies[tab] || !fileArray[fileTab]) {
+            return;
+        }
+
+        dispatch(getFileTexts({'company': companies[tab].company, 'filename': fileArray[fileTab]}));
+        setReturnedFullText(getFileText(fileArray[fileTab], returnedFileTexts));
     }, [tab, fileTab, companies, fileArray])
 
+    // When the file text changes, update the returned full text
+    useEffect(() => {
+        setReturnedFullText(getFileText(fileArray[fileTab], returnedFileTexts));
+    }, [returnedFileTexts])
 
+    // When the scroll id changes, scroll to that id
     useEffect(() => {
         scrollToId(scrollId);
-    }, [scrollId])
+    }, [scrollId, returnedFullText, fileTab, tab])
 
     // Given a full text and a list of responses, return a list of spans with the responses highlighted
     const highlightResponses = (fullText: string, responses: Response[]) => {
         // For all responses, find the indices of the answer in the full text. The answers are not necessarily in order
-        let indices = [];
+        let indices: {start: number, end: number, id: string}[] = [];
         for (let i = 0; i < responses.length; i++) {
             let response = responses[i];
             if (response.filename != fileArray[fileTab]) {
@@ -80,9 +89,9 @@ export function CompanyResults({ companies }: CompaniesProps) {
             }
             let start = fullText.indexOf(response.answer);
             let end = start + response.answer.length;
-            if (start == -1 || end == -1) {
-                console.log("Could not find answer in full text: " + response.answer)
-            }
+            // if (start == -1 || end == -1) {
+            //     console.log("Could not find answer in full text: " + response.answer)
+            // }
             indices.push({start: start, end: end, id: response.id});
         }
 
@@ -90,7 +99,7 @@ export function CompanyResults({ companies }: CompaniesProps) {
         indices.sort((a, b) => a.start - b.start);
 
         // Create a list of spans with the responses highlighted, the indices may be overlapping
-        let spans = [];
+        let spans: JSX.Element[] = [];
         let prevEnd = 0;
         for (let i = 0; i < indices.length; i++) {
             let index = indices[i];
@@ -131,7 +140,7 @@ export function CompanyResults({ companies }: CompaniesProps) {
 
     return (
         <>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: '10vh' }}>
                 <Tabs value={tab} onChange={handleChange} aria-label="tabsf" centered>
                     {companies.map((company, index) => {
                         return (
@@ -139,18 +148,20 @@ export function CompanyResults({ companies }: CompaniesProps) {
                         )
                     })}
                 </Tabs>
-                <div style={{width: '100vw', display: 'flex'}}>
-                    <div style={{width: '30vw'}}>
+                <div className='whole-company-result-wrapper'>
+                    <div className='response-sidebar-wrapper'>
                         {companies.length > 0 && <ResponseSidebar responses={companies[tab] ? companies[tab].responses : []} setFileTab={setFileTab} fileArray={fileArray} setScrollId={setScrollId}/>}
                     </div>
-                    <div style={{width: '70vw'}}>
-                        <Tabs value={fileTab} onChange={handleFileChange} aria-label="tabsf" centered>
-                        {fileArray.map((filename, index) => {
-                            return (
-                                <Tab key={index} label={filename} />
-                            )
-                        })}
-                        </Tabs>
+                    <div className='company-result-display'>
+                        <div className="company-result-tabs">
+                            <Tabs value={fileTab} onChange={handleFileChange} aria-label="tabsf" centered>
+                            {fileArray.map((filename, index) => {
+                                return (
+                                    <Tab key={index} label={filename} />
+                                )
+                            })}
+                            </Tabs>
+                        </div>
                         {companies[tab] && <div className="company-result">
                             {highlightResponses(returnedFullText, companies[tab].responses)}
                         </div>}
