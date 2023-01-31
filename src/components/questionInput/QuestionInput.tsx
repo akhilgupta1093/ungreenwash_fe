@@ -9,6 +9,7 @@ import { getBaseQAs } from '../body/bodySlice';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
 export function QuestionInput() {
@@ -34,7 +35,13 @@ export function QuestionInput() {
 
     return (
     <div style={{display: 'flex'}}>
-        <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%", backgroundColor: "white"}} onKeyDown={keyPress} />
+        {/* <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%", backgroundColor: "white"}} onKeyDown={keyPress} /> */}
+        <Autocomplete
+            id="free-solo-demo"
+            sx={{width: "100%", backgroundColor: "white"}}
+            options={["hello", "world"]}
+            renderInput={(params) => <TextField {...params} label="Ask a Question" />}
+        />
         <IconButton style={{marginLeft: "10px"}} onClick={getAnswers}>
             <SendIcon color="primary"/>
         </IconButton>
