@@ -6,7 +6,7 @@ const axios = setupCache(Axios);
 
 export function apiGetFullText(company: string, filename: string) {
     try {
-        const response = axios.get(getURL(`/api/file/${company}/${filename}`));
+        const response = axios.get(getURL(`/api/file/${company}/${filename}`), { cache: false });
         return response;
     } catch (error) {
         console.error(error);
