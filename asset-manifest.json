@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.bdce7336.css",
-    "main.js": "/static/js/main.1cf62a6b.js",
-    "static/media/akhil.jpeg": "/static/media/akhil.15d784c3c26e2c37f8fc.jpeg",
-    "static/media/christina.jpeg": "/static/media/christina.f30a1011500109907b1c.jpeg",
-    "static/media/simon.jpeg": "/static/media/simon.96bc71bb40ec4670a261.jpeg",
-    "static/media/bryan.jpeg": "/static/media/bryan.307a3782b1183247fd3e.jpeg",
-    "static/media/coleman.jpeg": "/static/media/coleman.16caebd6fd42b3f996fb.jpeg",
-    "index.html": "/index.html",
-    "main.bdce7336.css.map": "/static/css/main.bdce7336.css.map",
-    "main.1cf62a6b.js.map": "/static/js/main.1cf62a6b.js.map"
+    "main.css": "/ungreenwash_fe/static/css/main.bdce7336.css",
+    "main.js": "/ungreenwash_fe/static/js/main.8faee53b.js",
+    "static/media/akhil.jpeg": "/ungreenwash_fe/static/media/akhil.15d784c3c26e2c37f8fc.jpeg",
+    "static/media/christina.jpeg": "/ungreenwash_fe/static/media/christina.f30a1011500109907b1c.jpeg",
+    "static/media/simon.jpeg": "/ungreenwash_fe/static/media/simon.96bc71bb40ec4670a261.jpeg",
+    "static/media/bryan.jpeg": "/ungreenwash_fe/static/media/bryan.307a3782b1183247fd3e.jpeg",
+    "static/media/coleman.jpeg": "/ungreenwash_fe/static/media/coleman.16caebd6fd42b3f996fb.jpeg",
+    "index.html": "/ungreenwash_fe/index.html",
+    "main.bdce7336.css.map": "/ungreenwash_fe/static/css/main.bdce7336.css.map",
+    "main.8faee53b.js.map": "/ungreenwash_fe/static/js/main.8faee53b.js.map"
   },
   "entrypoints": [
     "static/css/main.bdce7336.css",
-    "static/js/main.1cf62a6b.js"
+    "static/js/main.8faee53b.js"
   ]
 }
