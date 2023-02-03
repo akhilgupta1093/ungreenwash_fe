@@ -1,8 +1,8 @@
-import axios from 'axios';
+import Axios from 'axios';
 import { setupCache } from 'axios-cache-interceptor';
 import { getURL } from '../../apis/routes';
 
-const axiosCache = setupCache(axios);
+const axios = setupCache(Axios);
 
 export function apiGetBaseQAs(question: string, companies: string[]) {
     var ret: any = []
@@ -11,7 +11,7 @@ export function apiGetBaseQAs(question: string, companies: string[]) {
     }
 
     try {
-        const response = axiosCache.post(getURL('/api/query/batch'), {
+        const response = axios.post(getURL('/api/query/batch'), {
             companies: companies,
             questions: [question],
         });
