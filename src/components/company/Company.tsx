@@ -116,7 +116,7 @@ export function Company({ company, question, responses }: CompanyProps) {
         <div className="company">
             <Card sx={{maxWidth: 250, maxHeight: 250, height: 250, width: 250, padding: 3}}>
                 <CardContent>
-                    <Link href={"/ungreenwash_fe/#/company_profile/" + company} variant="h5" sx={{color: "black"}}>
+                    <Link href={"/#/company_profile/" + company} variant="h5" sx={{color: "black"}}>
                         {company}
                     </Link>
                 </CardContent>
