@@ -1,26 +1,8 @@
 import axios from 'axios';
+import { setupCache } from 'axios-cache-interceptor';
 import { getURL } from '../../apis/routes';
 
-const questions = [
-    "What does this company do?", 
-    "What are the risks this company faces",
-    "What are the environmental risks this company faces",
-    "What are the climate-related risks and opportunities the organization has identified over the short, medium and long ",
-    "Environmental laws, environmental risks, environmental regulations",
-]
-
-const mockQuestions = [
-    "What does this company do?",
-]
-
-export function apiGetCompanies() {
-    try {
-        const response = axios.get(getURL('/api/companies/'));
-        return response;
-    } catch (error) {
-        console.error(error);
-    }
-}
+const axiosCache = setupCache(axios);
 
 export function apiGetBaseQAs(question: string, companies: string[]) {
     var ret: any = []
@@ -29,7 +11,7 @@ export function apiGetBaseQAs(question: string, companies: string[]) {
     }
 
     try {
-        const response = axios.post(getURL('/api/query/batch'), {
+        const response = axiosCache.post(getURL('/api/query/batch'), {
             companies: companies,
             questions: [question],
         });

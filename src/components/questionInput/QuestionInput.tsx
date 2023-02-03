@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
-import { selectQuestion, setQuestion } from './questionSlice';
+import { selectQuestion, setQuestion, selectSearchHistory, addToSearchHistory } from './questionSlice';
 import { selectedCompanies } from '../filter/filterSlice';
 import { getBaseQAs } from '../body/bodySlice';
 
@@ -17,14 +17,16 @@ export function QuestionInput() {
 
     const companies = useAppSelector(selectedCompanies)
     const question = useAppSelector(selectQuestion)
+    const searchHistory = useAppSelector(selectSearchHistory)
 
-    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        dispatch(setQuestion(event.target.value));
+    function handleChange(event: any, value: any) {
+        dispatch(setQuestion(value));
     }
     
     function getAnswers() {
+        dispatch(addToSearchHistory(question));
         dispatch(getBaseQAs({question, companies}));
-    } 
+    }
 
     function keyPress(e: any) {
         const enterKey = 13;
@@ -35,11 +37,13 @@ export function QuestionInput() {
 
     return (
     <div style={{display: 'flex'}}>
-        {/* <TextField label="Ask a Question" variant="outlined" onChange={handleChange} sx={{width: "100%", backgroundColor: "white"}} onKeyDown={keyPress} /> */}
         <Autocomplete
-            id="free-solo-demo"
             sx={{width: "100%", backgroundColor: "white"}}
-            options={["hello", "world"]}
+            options={searchHistory}
+            onChange={handleChange}
+            onInputChange={handleChange}
+            onKeyDown={keyPress}
+            clearOnBlur={false}
             renderInput={(params) => <TextField {...params} label="Ask a Question" />}
         />
         <IconButton style={{marginLeft: "10px"}} onClick={getAnswers}>

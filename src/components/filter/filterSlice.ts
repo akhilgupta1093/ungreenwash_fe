@@ -18,7 +18,7 @@ export const getCompanies = createAsyncThunk(
   'filter/getCompanies',
   async () => {
     const response = await apiGetCompanies();
-    console.log(response);
+    console.log("response", response);
     return response?.data || [];
   }
 );

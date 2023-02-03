@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { apiGetBaseQAs, apiGetCompanies } from './bodyAPI';
+import { apiGetBaseQAs } from './bodyAPI';
 import { CompanyProps } from '../company/Company';
 
 export interface BodyState {
