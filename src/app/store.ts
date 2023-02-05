@@ -5,6 +5,7 @@ import filterReducer from '../components/filter/filterSlice';
 import questionReducer from '../components/questionInput/questionSlice';
 import companyProfileReducer from '../components/companyProfile/companyProfileSlice';
 import settingsReducer from '../components/settings/settingsSlice';
+import landingPageReducer from '../components/landingPage/landingPageSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     question: questionReducer,
     companyProfile: companyProfileReducer,
     settings: settingsReducer,
+    landingPage: landingPageReducer,
   },
 });
 
