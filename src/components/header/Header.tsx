@@ -9,7 +9,7 @@ export function Header() {
         <AppBar>
             <Toolbar className="toolbar">
                 <div className="logo">
-                    Climate Data Lookup
+                    Photic.ai
                 </div>
 
                 <div className="links">
