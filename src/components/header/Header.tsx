@@ -9,7 +9,7 @@ export function Header() {
         <AppBar>
             <Toolbar className="toolbar">
                 <div className="logo">
-                    Photic.ai
+                    photic.ai
                 </div>
 
                 <div className="links">
