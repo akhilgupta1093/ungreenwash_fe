@@ -5,12 +5,12 @@
 }
 
 body {
-    background-color: linear-gradient(rgb(249,248,247),rgb(251,250,248) 46px,rgb(251,251,249) 120px,rgb(248,247,245) 35%,rgb(249,248,246));
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #333;
     margin: 0;
     padding: 0;
+    background: linear-gradient(rgb(249,248,247),rgb(251,250,248) 46px,rgb(251,251,249) 120px,rgb(248,247,245) 35%,rgb(249,248,246));
 }
 
 .section {

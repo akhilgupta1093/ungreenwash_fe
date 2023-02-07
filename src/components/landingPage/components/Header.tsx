@@ -27,23 +27,8 @@ const Menu = () => {
             className="relative flex items-center justify-between sm:h-10 lg:justify-start"
             aria-label="Global"
           >
-            <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
-              <div className="flex items-center justify-between w-full md:w-auto">
-                <a href="#">
-                  <span className="sr-only">{companyName}</span>
-                  <img alt="logo" className="h-16 w-auto sm:h-16" src={logo} />
-                </a>
-                <div className="-mr-2 flex items-center md:hidden">
-                  <Popover.Button
-                    className={`bg-background rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-secondary`}
-                  >
-                    <span className="sr-only">Open main menu</span>
-                  </Popover.Button>
-                </div>
-              </div>
-            </div>
             <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-              {navigation.map((item) => (
+              {navigation.map((item) => {return item.scroll && (
                 <Link
                   spy={true}
                   active="active"
@@ -55,7 +40,9 @@ const Menu = () => {
                 >
                   {item.name}
                 </Link>
-              ))}
+              )
+            }
+              )}
               <a
                 href="mailto:akhil@photic.ai?subject=Let's chat!"
                 target="_blank"

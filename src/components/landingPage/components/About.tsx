@@ -2,18 +2,10 @@ import React from 'react';
 
 import config from '../config/index.json';
 
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { selectPassword, setPassword } from '../landingPageSlice';
-
-import { TextField } from '@mui/material';
-
 const About = () => {
-  const dispatch = useAppDispatch();
   
   const { company, about } = config;
   const { logo, name: companyName } = company;
-
-  const password = useAppSelector(selectPassword);
 
   return (
     <div
@@ -85,7 +77,7 @@ const About = () => {
             </svg>
           </a>
         </div> */}
-        <div className="landing-page-password">
+        {/* <div className="landing-page-password">
             <TextField
                 id="outlined-password-input"
                 label="Internal Password"
@@ -95,7 +87,7 @@ const About = () => {
                 onChange={(e) => dispatch(setPassword(e.target.value))}
                 sx={{ backgroundColor: "#5A5A5A", marginTop: '2vh', width: '20vw'}}
             />
-        </div>
+        </div> */}
         <div className="flex items-center mt-6">
           <p className="mt-6 text-xs lg:text-sm leading-none text-gray-900 dark:text-gray-50">
             &copy; {new Date().getFullYear()} {' '}

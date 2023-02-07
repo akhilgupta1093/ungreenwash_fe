@@ -3,7 +3,7 @@ import './Filter.css'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
-import { getCompanies, companyOptions, changeSelectedCompanies } from './filterSlice';
+import { getCompanies, companyOptions, changeSelectedCompanies, selectedCompanies } from './filterSlice';
 import { setModal } from '../settings/settingsSlice';
 import { Settings } from '../settings/Settings';
 import Select, { StylesConfig } from 'react-select'
@@ -17,7 +17,7 @@ const selectStyles = {
     }),
     multiValue: (base: any) => ({
         ...base,
-        backgroundColor: "#000000",
+        backgroundColor: "rgb(236, 71, 85)",
         color: "#ffffff",
     }),
     multiValueLabel: (base: any) => ({
@@ -34,6 +34,7 @@ export function Filter() {
     }, []);
 
     const companies = useAppSelector(companyOptions);
+    const chosenCompanies = useAppSelector(selectedCompanies);
 
     type CompanyOption = { label: string; value: string; }
     // create an array of objects with label and value
@@ -54,6 +55,7 @@ export function Filter() {
                 styles={selectStyles}
                 closeMenuOnSelect={false}
                 options={display_companies} 
+                value={chosenCompanies.map((company) => {return {label: company, value: company}})}
                 onChange={handleChange}
                 isMulti
                 menuPlacement="auto"
@@ -63,7 +65,7 @@ export function Filter() {
         </div>
 
         <div className="more-settings">
-            <IconButton onClick={() => {dispatch(setModal(true))}}>
+            <IconButton onClick={() => {dispatch(setModal(true))}} sx={{".css-ci5apu-MuiSvgIcon-root": {color: "rgb(236, 71, 85)"}}}>
                 <SettingsIcon color="primary"/>
             </IconButton>
         </div>

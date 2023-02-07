@@ -12,6 +12,17 @@ import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
 import { fileTexts, getFileTexts } from '../company/companySlice';
 import { CompanyProps, Response, getFileText } from '../company/Company';
 
+const tabsStyling = {
+    "& button": { borderRadius: 2, padding: 2, backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black'},
+    "& button:hover": { backgroundColor: "black", color: "white" },
+    "& button.Mui-selected": { backgroundColor: "rgb(236, 71, 85, 0.9)", color: "white" },
+    ".css-1aquho2-MuiTabs-indicator": { backgroundColor: "rgb(236, 71, 85)" },
+};
+
+const companyTabsStyling = {
+    "& button": { marginBottom: 2},
+}
+
 
 export function CompanyResults({ companies }: CompaniesProps) {
     const dispatch = useAppDispatch();
@@ -127,8 +138,14 @@ export function CompanyResults({ companies }: CompaniesProps) {
 
     return (
         <>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', marginBottom: '10vh' }}>
-                <Tabs value={tab} onChange={handleChange} aria-label="tabsf" centered>
+            <Box sx={{ borderColor: 'divider', marginBottom: '10vh' }}>
+                <Tabs 
+                    value={tab} 
+                    onChange={handleChange} 
+                    aria-label="tabsf" 
+                    sx={[tabsStyling, companyTabsStyling]}
+                    centered
+                >
                     {companies.map((company, index) => {
                         return (
                             <Tab key={index} label={company.company} />
@@ -141,7 +158,13 @@ export function CompanyResults({ companies }: CompaniesProps) {
                     </div>
                     <div className='company-result-display'>
                         <div className="company-result-tabs">
-                            <Tabs value={fileTab} onChange={handleFileChange} aria-label="tabsf" centered>
+                            <Tabs 
+                                value={fileTab} 
+                                onChange={handleFileChange} 
+                                aria-label="tabsf" 
+                                centered
+                                sx={tabsStyling}
+                            >
                             {fileArray.map((filename, index) => {
                                 return (
                                     <Tab key={index} label={filename} />

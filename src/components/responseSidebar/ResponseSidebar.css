@@ -12,13 +12,14 @@
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
     border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 
 .response-sidebar-item {
     padding: 10px;
     border-bottom: 1px solid #ccc;
     cursor: pointer;
-    background-color: #dedede;
+    background-color: linear-gradient(rgb(249,248,247),rgb(251,250,248) 46px,rgb(251,251,249) 120px,rgb(248,247,245) 35%,rgb(249,248,246));
 }
 
 .response-sidebar-item:hover  {

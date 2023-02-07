@@ -6,11 +6,23 @@
   "navigation": [
     {
       "name": "Product",
-      "href": "product"
+      "href": "product",
+      "scroll": true
     },
     {
       "name": "Team",
-      "href": "team"
+      "href": "team",
+      "scroll": true
+    },
+    {
+      "name": "Home",
+      "href": "/#/",
+      "scroll": false
+    },
+    {
+      "name": "Tool",
+      "href": "/#/lookup",
+      "scroll": false
     }
   ],
   "callToAction": {
@@ -23,12 +35,12 @@
     "description": "ESG investing is going mainstream, but ESG ratings are broken. We are a small team of subject matter experts and engineers who are passionate about leveraging emerging technologies to improve investor understanding of the complex ESG landscape. ",
     "img": "/assets/images/photic.jpg",
     "primaryAction": {
-      "text": "Email us",
-      "href": "mailto:akhil@photic.ai?subject=Let's chat!"
+      "text": "Try it out",
+      "href": "/#/lookup"
     },
     "secondaryAction": {
-      "text": "",
-      "href": ""
+      "text": "Email us",
+      "href": "mailto:akhil@photic.ai?subject=Let's chat!"
     }
   },
   "product": {

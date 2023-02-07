@@ -40,13 +40,14 @@ export function QuestionInput() {
         <Autocomplete
             sx={{width: "100%", backgroundColor: "white"}}
             options={searchHistory}
+            value={question}
             onChange={handleChange}
             onInputChange={handleChange}
             onKeyDown={keyPress}
             clearOnBlur={false}
             renderInput={(params) => <TextField {...params} label="Ask a Question" />}
         />
-        <IconButton style={{marginLeft: "10px"}} onClick={getAnswers}>
+        <IconButton style={{marginLeft: "10px"}} onClick={getAnswers} sx={{".css-ci5apu-MuiSvgIcon-root": {color: "rgb(236, 71, 85)"}}}>
             <SendIcon color="primary"/>
         </IconButton>
     </div>

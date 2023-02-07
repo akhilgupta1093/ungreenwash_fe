@@ -24,7 +24,10 @@ export const questionSlice = createSlice({
       state.currentQuestion = action.payload;
     },
     addToSearchHistory: (state, action: PayloadAction<string>) => {
-      state.searchHistory.push(action.payload);
+      if (state.searchHistory.includes(action.payload)) {
+        state.searchHistory.splice(state.searchHistory.indexOf(action.payload), 1);
+      }
+      state.searchHistory.unshift(action.payload);
     }
   }
 });
