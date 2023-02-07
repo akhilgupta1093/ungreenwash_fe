@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import MuiMarkdown from 'mui-markdown';
 import Box from '@mui/material/Box';
 import "./Body.css"
 import { Companies } from '../companies/Companies';
@@ -18,8 +19,6 @@ import { useEffect } from 'react';
 import { getBaseQAs, baseQAs, isLoadingState } from './bodySlice';
 import { selectCompare } from '../settings/settingsSlice';
 
-
-
 export function Body() {
     const dispatch = useAppDispatch();
 
@@ -32,6 +31,17 @@ export function Body() {
     return (
     <div className="body">
         <Loading isLoading={isLoading} />
+        <div className="section">
+            <MuiMarkdown>
+                {
+                    `#### Company Research Tool
+                    1. Select the companies you want to research
+                    2. Ask a question 
+                    
+                    We use NLP to extract the best answers to your questions from the companies' disclosure documents.`
+                }
+            </MuiMarkdown>
+        </div>
         <div className="section">
             <div className="filter">
                 <Filter />
