@@ -34,9 +34,11 @@ export function Body() {
         <div className="section">
             <MuiMarkdown>
                 {
-                    `#### Company Research Tool
+                    `#### Company ESG and Sustainability Research Tool
+
+                    Quick Start:
                     1. Select the companies you want to research
-                    2. Ask a question 
+                    2. Ask or select a question
                     
                     We use NLP to extract the best answers to your questions from the companies' disclosure documents.`
                 }
