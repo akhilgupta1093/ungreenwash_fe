@@ -57,6 +57,7 @@ Note the difference in language across the two sources.  What insights can you s
 
 1. (1) Select the companies you want to research
 2. (2) Ask a question, such as "What is this company doing about its plastic packaging?"
+3. (3) Examine the answers (ordered by relevance)
 `}
                 </MuiMarkdown>
             </div>
