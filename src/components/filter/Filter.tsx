@@ -64,11 +64,11 @@ export function Filter() {
             />
         </div>
 
-        <div className="more-settings">
+        {/* <div className="more-settings">
             <IconButton onClick={() => {dispatch(setModal(true))}} sx={{".css-ci5apu-MuiSvgIcon-root": {color: "rgb(236, 71, 85)"}}}>
                 <SettingsIcon color="primary"/>
             </IconButton>
-        </div>
+        </div> */}
         <Settings />
     </div>
     );

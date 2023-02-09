@@ -20,8 +20,13 @@
       "scroll": false
     },
     {
-      "name": "Tool",
+      "name": "ESG Lookup",
       "href": "/#/lookup",
+      "scroll": false
+    },
+    {
+      "name": "News Scraper",
+      "href": "/#/news",
       "scroll": false
     }
   ],

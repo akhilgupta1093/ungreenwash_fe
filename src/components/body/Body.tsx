@@ -11,7 +11,6 @@ import { QuestionInput } from '../questionInput/QuestionInput';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
-import { Loading } from '../loading/Loading';
 import { CompanyResults } from '../companyResults/CompanyResults';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -30,7 +29,7 @@ export function Body() {
 
     return (
     <div className="body">
-        <Loading isLoading={isLoading} />
+    
         <div className="section" style={{width: '70vw', textAlign: 'justify'}}>
             <div style={{margin: '20px'}}>
                 <MuiMarkdown>
