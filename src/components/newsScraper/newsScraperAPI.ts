@@ -4,11 +4,15 @@ import { getURL } from '../../apis/routes';
 
 const axios = setupCache(Axios);
 
-export function apiGetNews(keyword: string, period: string) {
+export function apiGetNews(keyword: string, startDateString: string, endDateString: string, country: string, maxResults: number, smartFilter: boolean) {
     try {
         const response = axios.post(getURL('/api/news'), {
             keyword: keyword,
-            period: period
+            startDate: startDateString,
+            endDate: endDateString,
+            country: country,
+            maxResults: maxResults,
+            smartFilter: smartFilter
         });
         return response
     } catch (error) {

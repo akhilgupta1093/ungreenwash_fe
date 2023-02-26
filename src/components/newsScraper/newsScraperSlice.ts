@@ -16,8 +16,9 @@ const initialState: NewsState = {
 
 export const getNews = createAsyncThunk(
     'newsScraper/getNews',
-    async ({keyword, period}: {keyword: string, period: string}) => {
-      const response = await apiGetNews(keyword, period);
+    // start and end date are a dayjs object
+    async ({keyword, startDateString, endDateString, country, maxResults, smartFilter}: {keyword: string, startDateString: string, endDateString: string, country: string, maxResults: number, smartFilter: boolean}) => {
+      const response = await apiGetNews(keyword, startDateString, endDateString, country, maxResults, smartFilter);
       return response?.data || {};
     }
   );
@@ -37,6 +38,14 @@ export const newsScraperSlice = createSlice({
         })
         .addCase(getNews.fulfilled, (state, action) => {
             state.status = 'idle';
+            // sort by date
+            action.payload.sort((a: NewsItem, b: NewsItem) => {
+                return new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime();
+            });
+            // add field publishedDateStr to each item showing only the date, not the time
+            action.payload.forEach((item: NewsItem) => {
+                item.publishedDateStr = new Date(item.publishedDate).toLocaleDateString();
+            });
             state.news = action.payload;
         })
         .addCase(getNews.rejected, (state) => {

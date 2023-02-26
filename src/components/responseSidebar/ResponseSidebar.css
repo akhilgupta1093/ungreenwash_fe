@@ -55,6 +55,15 @@
     font-weight: bold;
 }
 
+.response-sidebar-overhead {
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow: auto;
+    padding: 10px;
+    width: 100%;
+    height: 85%;
+}
+
 .response-sidebar-score {
     font-size: 14px;
     white-space: pre-wrap;

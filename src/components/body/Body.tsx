@@ -29,7 +29,6 @@ export function Body() {
 
     return (
     <div className="body">
-    
         <div className="section" style={{width: '70vw', textAlign: 'justify'}}>
             <div style={{margin: '20px'}}>
                 <MuiMarkdown>
