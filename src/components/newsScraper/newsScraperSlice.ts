@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { stat } from 'fs';
 import { RootState, AppThunk } from '../../app/store';
 import { NewsItem } from './NewsScraper';
-import { apiGetNews } from './newsScraperAPI';
+import { apiGetNews, apiDownloadNews } from './newsScraperAPI';
 
 export interface NewsState {
     news: NewsItem[];
@@ -16,12 +16,19 @@ const initialState: NewsState = {
 
 export const getNews = createAsyncThunk(
     'newsScraper/getNews',
-    // start and end date are a dayjs object
     async ({keyword, startDateString, endDateString, country, maxResults, smartFilter}: {keyword: string, startDateString: string, endDateString: string, country: string, maxResults: number, smartFilter: boolean}) => {
       const response = await apiGetNews(keyword, startDateString, endDateString, country, maxResults, smartFilter);
       return response?.data || {};
     }
   );
+
+export const downloadNews = createAsyncThunk(
+    'newsScraper/downloadNews',
+    async ({keyword, startDateString, endDateString, country, maxResults, smartFilter, downloadWithSummaries}: {keyword: string, startDateString: string, endDateString: string, country: string, maxResults: number, smartFilter: boolean, downloadWithSummaries: boolean}) => {
+        const response = await apiDownloadNews(keyword, startDateString, endDateString, country, maxResults, smartFilter, downloadWithSummaries);
+        return response?.data || "";
+    }
+);
   
 export const newsScraperSlice = createSlice({
     name: 'news',
@@ -49,6 +56,20 @@ export const newsScraperSlice = createSlice({
             state.news = action.payload;
         })
         .addCase(getNews.rejected, (state) => {
+            state.status = 'failed';
+        })
+        .addCase(downloadNews.pending, (state) => {
+            state.status = 'loading';
+        })
+        .addCase(downloadNews.fulfilled, (state, action) => {
+            state.status = 'idle';
+            // open returned url in new tab
+            console.log(action.payload)
+            if (action.payload.url) {
+                window.open(action.payload.url, '_blank');
+            }
+        })
+        .addCase(downloadNews.rejected, (state) => {
             state.status = 'failed';
         })
     },
