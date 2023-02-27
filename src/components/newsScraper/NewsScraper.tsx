@@ -3,6 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { getBaseQAs } from '../body/bodySlice';
 import { Autocomplete, TextField, IconButton } from '@mui/material';
+import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,7 +16,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 
 import { companyOptions, getCompanies } from '../filter//filterSlice';
-import { getNews, selectNews, downloadNews } from './newsScraperSlice';
+import { getNews, selectNews, downloadNews, selectDownloadURL } from './newsScraperSlice';
 
 export interface NewsItem {
     description: string;
@@ -53,6 +54,7 @@ export function NewsScraper() {
 
     const companies = useAppSelector(companyOptions);
     const news = useAppSelector(selectNews);
+    const downloadURL = useAppSelector(selectDownloadURL);
     
     function getAnswers() {
         const [startDateString, endDateString] = getDateStrings();
@@ -133,6 +135,8 @@ export function NewsScraper() {
                 <FormGroup style={{marginLeft: "10px"}}>
                     <FormControlLabel control={<Checkbox onChange={(event) => setDownloadWithSummaries(event.target.checked)} />} label="With Summaries" />
                 </FormGroup>
+                {downloadURL &&
+                    <Button onClick={() => window.open(downloadURL, "_blank")}>Download Manually</Button>}
             </div>
         }
         {/* <div style={{display: 'flex', width: '50%', margin: '20px'}}>

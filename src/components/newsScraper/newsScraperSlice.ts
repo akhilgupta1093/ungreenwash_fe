@@ -6,11 +6,13 @@ import { apiGetNews, apiDownloadNews } from './newsScraperAPI';
 
 export interface NewsState {
     news: NewsItem[];
+    downloadURL: string;
     status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: NewsState = {
     news: [],
+    downloadURL: "",
     status: 'idle',
 };
 
@@ -66,6 +68,7 @@ export const newsScraperSlice = createSlice({
             // open returned url in new tab
             console.log(action.payload)
             if (action.payload.url) {
+                state.downloadURL = action.payload.url;
                 window.open(action.payload.url, '_blank');
             }
         })
@@ -76,5 +79,6 @@ export const newsScraperSlice = createSlice({
 });
 
 export const selectNews = (state: RootState) => state.newsScraper.news;
+export const selectDownloadURL= (state: RootState) => state.newsScraper.downloadURL;
 
 export default newsScraperSlice.reducer;
