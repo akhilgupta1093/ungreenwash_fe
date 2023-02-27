@@ -68,7 +68,7 @@ export function Filter() {
         </div>
 
         <FormGroup style={{marginLeft: "10px"}}>
-            <FormControlLabel control={<Checkbox checked={summarize} onChange={(event) => dispatch(changeSummarize(event.target.checked))} name="Summarize Results" />} label="Summarize" />
+            <FormControlLabel control={<Checkbox disabled checked={summarize} onChange={(event) => dispatch(changeSummarize(event.target.checked))} name="Summarize Results" />} label="Summarize" />
         </FormGroup>
 
         {/* <div className="more-settings">

@@ -140,7 +140,7 @@ export function CompanyResults({ companies }: CompaniesProps) {
         <>
             <Box sx={{ borderColor: 'divider', marginBottom: '10vh' }}>
                 <div className='company-results-summary'>
-                    {companies.length > 0 && companies[tab] && <h2>Summary: {companies[tab].summary}</h2>}
+                    {companies.length > 0 && companies[tab] && companies[tab].summary !== "" && <h2>Summary: {companies[tab].summary}</h2>}
                 </div>
                 <Tabs 
                     value={tab} 
