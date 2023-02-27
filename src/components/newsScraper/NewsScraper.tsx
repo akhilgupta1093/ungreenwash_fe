@@ -135,8 +135,8 @@ export function NewsScraper() {
                 <FormGroup style={{marginLeft: "10px"}}>
                     <FormControlLabel control={<Checkbox onChange={(event) => setDownloadWithSummaries(event.target.checked)} />} label="With Summaries" />
                 </FormGroup>
-                {downloadURL &&
-                    <Button onClick={() => window.open(downloadURL, "_blank")}>Download Manually</Button>}
+                {/* {downloadURL &&
+                    <Button onClick={() => window.open(downloadURL, "_blank")}>Download Manually</Button>} */}
             </div>
         }
         {/* <div style={{display: 'flex', width: '50%', margin: '20px'}}>
