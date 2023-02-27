@@ -17,6 +17,7 @@ export function Companies({ companies }: CompaniesProps) {
                     company={company.company} 
                     question={company.question} 
                     responses={company.responses}
+                    summary={company.summary}
                 />
             ))}
         </div>

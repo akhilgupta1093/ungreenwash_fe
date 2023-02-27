@@ -3,12 +3,13 @@ import './Filter.css'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
-import { getCompanies, companyOptions, changeSelectedCompanies, selectedCompanies } from './filterSlice';
+import { getCompanies, companyOptions, changeSelectedCompanies, selectedCompanies, changeSummarize, selectSummarize } from './filterSlice';
 import { setModal } from '../settings/settingsSlice';
 import { Settings } from '../settings/Settings';
 import Select, { StylesConfig } from 'react-select'
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
 const selectStyles = {
     container: (base: any) => ({
@@ -33,8 +34,10 @@ export function Filter() {
         dispatch(getCompanies());
     }, []);
 
+
     const companies = useAppSelector(companyOptions);
     const chosenCompanies = useAppSelector(selectedCompanies);
+    const summarize = useAppSelector(selectSummarize);
 
     type CompanyOption = { label: string; value: string; }
     // create an array of objects with label and value
@@ -63,6 +66,10 @@ export function Filter() {
                 placeholder={"Select Companies..."}
             />
         </div>
+
+        <FormGroup style={{marginLeft: "10px"}}>
+            <FormControlLabel control={<Checkbox checked={summarize} onChange={(event) => dispatch(changeSummarize(event.target.checked))} name="Summarize Results" />} label="Summarize" />
+        </FormGroup>
 
         {/* <div className="more-settings">
             <IconButton onClick={() => {dispatch(setModal(true))}} sx={{".css-ci5apu-MuiSvgIcon-root": {color: "rgb(236, 71, 85)"}}}>

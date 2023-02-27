@@ -17,9 +17,8 @@ const initialState: BodyState = {
 
 export const getBaseQAs = createAsyncThunk(
     'body/getBaseQAs',
-    async ({question, companies}: {question: string, companies: string[]}) => {
-      console.log("getBaseQAs", question, companies)
-      const response = await apiGetBaseQAs(question, companies);
+    async ({question, companies, summarize}: {question: string, companies: string[], summarize: boolean}) => {
+      const response = await apiGetBaseQAs(question, companies, summarize);
       return response?.data || [];
     }
 );

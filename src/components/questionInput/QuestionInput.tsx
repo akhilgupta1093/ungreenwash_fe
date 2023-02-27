@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
 import { selectQuestion, setQuestion, selectSearchHistory, addToSearchHistory } from './questionSlice';
-import { selectedCompanies } from '../filter/filterSlice';
+import { selectedCompanies, selectSummarize } from '../filter/filterSlice';
 import { getBaseQAs } from '../body/bodySlice';
 
 import TextField from '@mui/material/TextField';
@@ -16,6 +16,7 @@ export function QuestionInput() {
     const dispatch = useAppDispatch();
 
     const companies = useAppSelector(selectedCompanies)
+    const summarize = useAppSelector(selectSummarize)
     const question = useAppSelector(selectQuestion)
     const searchHistory = useAppSelector(selectSearchHistory)
 
@@ -25,7 +26,8 @@ export function QuestionInput() {
     
     function getAnswers() {
         dispatch(addToSearchHistory(question));
-        dispatch(getBaseQAs({question, companies}));
+        console.log("get answers with summarize: " + summarize)
+        dispatch(getBaseQAs({question, companies, summarize}));
     }
 
     function keyPress(e: any) {

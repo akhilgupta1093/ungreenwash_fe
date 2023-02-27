@@ -21,6 +21,7 @@ export interface CompanyProps {
     company: string,
     question: string,
     responses: Response[],
+    summary: string,
 }
 
 export interface Response {

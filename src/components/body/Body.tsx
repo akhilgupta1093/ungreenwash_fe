@@ -22,6 +22,7 @@ export function Body() {
     const dispatch = useAppDispatch();
 
     const baseCompanyQAs = useAppSelector(baseQAs);
+
     const comparisonMode = useAppSelector(selectCompare);
 
     const isLoading = useAppSelector(isLoadingState);
