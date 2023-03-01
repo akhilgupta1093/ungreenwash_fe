@@ -25,6 +25,20 @@ const cannedQuestions = [
   "How is management compensation and renumeration linked to climate- and sustainability targets?",
 ]
 
+const dspimCannedQuestions = [
+  "Have there been any instances of local resistance related to environmental concerns? (Either by individuals or NGO's boycotts)",
+  "In the last 5 years has the company been under the National Green Tribunal (NGT) Scanner for any environmental non compliances or gross negligence?",
+  "Has the company integrated concepts of circularity in its operations, in end-use or promotes sustainable consumption of its products?",
+  "Does the company report its carbon footprint/GHG Inventory?",
+  "Does the company implement the recommendations of the Task Force on Climate‑related Financial Disclosures (TCFD)?",
+  "Describe the short term climate target",
+  "Describe the long term climate target",
+  "Describe the Net zero/Carbon neutral strategy briefly",
+  "Does the company's existing products/services or its R&D of new products and technologies include environmental considerations?",
+  "Describe the products or services introduced/in the pipeline keeping in mind growing consumer interest in environmentally sustainable products",
+  "Does the company engage with its suppliers and have measureable outcomes on environmental and social themes? Are data points available to support these interactions?",
+]
+
 export interface QuestionState {
   currentQuestion: string;
   searchHistory: string[];
@@ -33,7 +47,7 @@ export interface QuestionState {
 
 const initialState: QuestionState = {
   currentQuestion: "",
-  searchHistory: cannedQuestions,
+  searchHistory: dspimCannedQuestions,
   status: 'idle',
 };
 
