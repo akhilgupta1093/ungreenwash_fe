@@ -9,6 +9,9 @@ import Box from '@mui/material/Box';
 import { CompaniesProps }  from '../companies/Companies';
 import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
 
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
+// import './Atul - Annual Report - 7 July 2022.pdf' as pdf
+
 import { fileTexts, getFileTexts } from '../company/companySlice';
 import { CompanyProps, Response, getFileText } from '../company/Company';
 
@@ -175,9 +178,14 @@ export function CompanyResults({ companies }: CompaniesProps) {
                             })}
                             </Tabs>
                         </div>
-                        {companies[tab] && <div className="company-result">
-                            {highlightResponses(returnedFullText, companies[tab].responses)}
+                        { companies[tab] && <div className="company-result">
+                        <Document file="./Atul - Annual Report - 7 July 2022.pdf">
+                            <Page pageNumber={1} />
+                        </Document>
                         </div>}
+                        {/* {companies[tab] && <div className="company-result">
+                            {highlightResponses(returnedFullText, companies[tab].responses)}
+                        </div>} */}
                     </div>
                 </div>
             </Box>
