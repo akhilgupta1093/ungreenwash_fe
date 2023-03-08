@@ -13,15 +13,11 @@ import { fileTexts, getFileTexts } from '../company/companySlice';
 import { CompanyProps, Response, getFileText } from '../company/Company';
 
 const tabsStyling = {
-    "& button": { borderRadius: 2, padding: 2, backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black'},
+    "& button": { backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black', height: '100%'},
     "& button:hover": { backgroundColor: "black", color: "white" },
     "& button.Mui-selected": { backgroundColor: "rgb(236, 71, 85, 0.9)", color: "white" },
     ".css-1aquho2-MuiTabs-indicator": { backgroundColor: "rgb(236, 71, 85)" },
 };
-
-const companyTabsStyling = {
-    "& button": { marginBottom: 2},
-}
 
 
 export function CompanyResults({ companies }: CompaniesProps) {
@@ -146,7 +142,7 @@ export function CompanyResults({ companies }: CompaniesProps) {
                     value={tab} 
                     onChange={handleChange} 
                     aria-label="tabsf" 
-                    sx={[tabsStyling, companyTabsStyling]}
+                    sx={tabsStyling}
                     centered
                 >
                     {companies.map((company, index) => {
@@ -169,8 +165,12 @@ export function CompanyResults({ companies }: CompaniesProps) {
                                 sx={tabsStyling}
                             >
                             {fileArray.map((filename, index) => {
+                                var filenameShortened = filename
+                                if (filename.length > 35) {
+                                    filenameShortened = filename.substring(0, 35) + "...";
+                                }
                                 return (
-                                    <Tab key={index} label={filename} />
+                                    <Tab key={index} label={filenameShortened} />
                                 )
                             })}
                             </Tabs>

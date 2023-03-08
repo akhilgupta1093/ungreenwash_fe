@@ -3,6 +3,7 @@ import { Header } from './components/header/Header';
 import { Body } from './components/body/Body';
 import { CompanyProfile } from './components/companyProfile/CompanyProfile';
 import { LandingPage } from 'components/landingPage/LandingPage';
+import { Faq } from 'components/faq/Faq';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { NewsScraper } from 'components/newsScraper/NewsScraper';
 import './App.css';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/lookup" element={<Body />} />
             <Route path="/news" element={<NewsScraper />} />
+            <Route path="/faq" element={<Faq />} />
             <Route path="/company_profile/:company" element={<CompanyProfile />} />
           </Routes>
         </div>

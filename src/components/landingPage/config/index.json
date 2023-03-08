@@ -28,6 +28,11 @@
       "name": "News Scraper",
       "href": "/#/news",
       "scroll": false
+    },
+    {
+      "name": "FAQ",
+      "href": "/#/faq",
+      "scroll": false
     }
   ],
   "callToAction": {
