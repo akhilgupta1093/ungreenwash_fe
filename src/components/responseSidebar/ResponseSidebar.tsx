@@ -1,11 +1,13 @@
 import './ResponseSidebar.css'
 import React, { useEffect } from 'react';
+import { Tooltip } from '@mui/material';
 
 interface ResponseSidebarVal {
     answer: string,
     score: number,
     filename: string,
     id: string,
+    pdf_page: number,
 }
 
 interface ResponseSidebarProps {
@@ -13,9 +15,11 @@ interface ResponseSidebarProps {
     setFileTab: React.Dispatch<React.SetStateAction<number>>,
     fileArray: string[],
     setScrollId: React.Dispatch<React.SetStateAction<string>>,
+    setPageNumber: React.Dispatch<React.SetStateAction<number>>,
+    handleClickParent: () => void,
 }
 
-export function ResponseSidebar({ responses, setFileTab, fileArray, setScrollId }: ResponseSidebarProps) {
+export function ResponseSidebar({ responses, setFileTab, fileArray, setScrollId, setPageNumber, handleClickParent }: ResponseSidebarProps) {
     const [currItem, setCurrItem] = React.useState("");
 
     useEffect(() => {
@@ -29,6 +33,7 @@ export function ResponseSidebar({ responses, setFileTab, fileArray, setScrollId 
         if (responses.length > 0) {
             setScrollId(responses[0].id);
             setCurrItem(responses[0].id);
+            setPageNumber(responses[0].pdf_page);
         }
     }, [responses])
 
@@ -55,27 +60,34 @@ export function ResponseSidebar({ responses, setFileTab, fileArray, setScrollId 
         // Set the file tab to the index of that element
         let index = fileArray.indexOf(response.filename);
         setFileTab(index);
-        console.log("response filename = " + response.filename + "array = " + fileArray + " index = " + index);
 
         // Scroll to the response
         setScrollId(response.id);
 
         // Set the currItem to the response id
         setCurrItem(response.id);
+
+        // Set the chosen answer to the response answer
+        setPageNumber(response.pdf_page);
+        
+        // Call the parent function
+        handleClickParent();
     }
     
     return (
         <div className="response-sidebar">
             {responses && responses.map((response, index) => (
                 <div key={response.id} className="response-sidebar-item">
-                    <button id={"sidebar_" + response.id} className="response-sidebar-button" onClick={() => handleClick(response)}>
-                        <div className="response-sidebar-answer">
-                            {response.answer.split(" ").slice(0, 10).join(" ") + "..."}
-                        </div>
-                        <div className="response-sidebar-score">
-                            {response.score}
-                        </div>
-                    </button>
+                    <Tooltip title={response.answer}>
+                        <button id={"sidebar_" + response.id} className="response-sidebar-button" onClick={() => handleClick(response)}>
+                            <div className="response-sidebar-answer">
+                                {response.answer.split(" ").slice(0, 10).join(" ") + "..."}
+                            </div>
+                            <div className="response-sidebar-score">
+                                {response.score}
+                            </div>
+                        </button>
+                    </Tooltip>
                 </div>
             ))}
         </div>

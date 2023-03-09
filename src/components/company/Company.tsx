@@ -29,6 +29,7 @@ export interface Response {
     score: number,
     filename: string,
     id: string,
+    pdf_page: number,
 }
 
 const modalStyle = {

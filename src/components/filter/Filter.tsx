@@ -3,12 +3,13 @@ import './Filter.css'
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { useEffect } from 'react';
-import { getCompanies, companyOptions, changeSelectedCompanies, selectedCompanies, changeSummarize, selectSummarize } from './filterSlice';
+import { getCompanies, companyOptions, changeSelectedCompanies, selectedCompanies, changeSummarize, selectSummarize, selectPdfView, changePdfView } from './filterSlice';
 import { setModal } from '../settings/settingsSlice';
 import { Settings } from '../settings/Settings';
 import Select, { StylesConfig } from 'react-select'
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Switch from '@mui/material/Switch';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
 const selectStyles = {
@@ -38,6 +39,7 @@ export function Filter() {
     const companies = useAppSelector(companyOptions);
     const chosenCompanies = useAppSelector(selectedCompanies);
     const summarize = useAppSelector(selectSummarize);
+    const pdfView = useAppSelector(selectPdfView);
 
     type CompanyOption = { label: string; value: string; }
     // create an array of objects with label and value
@@ -69,6 +71,10 @@ export function Filter() {
 
         <FormGroup style={{marginLeft: "10px"}}>
             <FormControlLabel control={<Checkbox disabled checked={summarize} onChange={(event) => dispatch(changeSummarize(event.target.checked))} name="Summarize Results" />} label="Summarize" />
+        </FormGroup>
+
+        <FormGroup>
+            <FormControlLabel label="View PDFs" control={<Switch checked={pdfView} onChange={(event) => dispatch(changePdfView(event.target.checked))} />} />
         </FormGroup>
 
         {/* <div className="more-settings">
