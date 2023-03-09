@@ -1,6 +1,6 @@
 
 import './CompanyResults.css';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,11 +9,13 @@ import Box from '@mui/material/Box';
 import { CompaniesProps }  from '../companies/Companies';
 import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
 
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
-// import './Atul - Annual Report - 7 July 2022.pdf' as pdf
-
+import { Document, Page, pdfjs } from 'react-pdf';
+import "react-pdf/dist/esm/Page/AnnotationLayer.css"
 import { fileTexts, getFileTexts } from '../company/companySlice';
+import { selectPdfView } from '../filter/filterSlice';
 import { CompanyProps, Response, getFileText } from '../company/Company';
+import { getURL } from '../../apis/routes';
+import { fullText } from 'components/companyProfile/companyProfileSlice';
 
 const tabsStyling = {
     "& button": { backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black', height: '100%'},
@@ -22,13 +24,22 @@ const tabsStyling = {
     ".css-1aquho2-MuiTabs-indicator": { backgroundColor: "rgb(236, 71, 85)" },
 };
 
+const getPdfUrl = (company: string, filename: string) => {
+    return getURL(`/api/pdf/${company}/${filename}`);
+}
 
 export function CompanyResults({ companies }: CompaniesProps) {
     const dispatch = useAppDispatch();
+    const [numPages, setNumPages] = useState<number | null>(null);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const viewerRef = useRef<HTMLDivElement>(null);
+    const [pdfUrl, setPdfUrl] = useState<string>("");
     const [fileArray, setFileArray] = useState<string[]>([]);
     const [tab, setTab] = React.useState(0);
     const [fileTab, setFileTab] = React.useState(0);
     const [scrollId, setScrollId] = useState<string>("");
+    const [isPDFLoading, setIsPDFLoading] = useState(true);
+
     const [returnedFullText, setReturnedFullText] = useState<string>("");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTab(newValue);
@@ -37,6 +48,11 @@ export function CompanyResults({ companies }: CompaniesProps) {
         setFileTab(newValue);
     };
     const returnedFileTexts = useAppSelector(fileTexts);
+    const pdfView = useAppSelector(selectPdfView);
+
+    useEffect(() => {
+        pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+    }, []);
 
     // Every time the tab or data changes, update the fileArray 
     useEffect(() => {
@@ -63,6 +79,8 @@ export function CompanyResults({ companies }: CompaniesProps) {
 
         dispatch(getFileTexts({'company': companies[tab].company, 'filename': fileArray[fileTab]}));
         setReturnedFullText(getFileText(fileArray[fileTab], returnedFileTexts));
+        setPdfUrl(getPdfUrl(companies[tab].company, fileArray[fileTab]));
+        setIsPDFLoading(true);
     }, [tab, fileTab, companies, fileArray])
 
     // When the file text changes, update the returned full text
@@ -72,8 +90,30 @@ export function CompanyResults({ companies }: CompaniesProps) {
 
     // When the scroll id changes, scroll to that id
     useEffect(() => {
-        scrollToId(scrollId);
-    }, [scrollId, returnedFullText, fileTab, tab])
+        if (pdfView) {
+            scrollToPage(pageNumber);
+        } else {
+            scrollToId(scrollId);
+        }
+    }, [scrollId, returnedFullText, fileTab, tab, pageNumber])
+
+    // When isPDFLoading changes, scroll to page
+    useEffect(() => {
+        if (pdfView) {
+            scrollToPage(pageNumber);
+        } else {
+            scrollToId(scrollId);
+        }
+    }, [isPDFLoading])
+
+    const handleSidebarClick = () => {
+        if (pdfView) {
+            scrollToPage(pageNumber);
+        } else {
+            scrollToId(scrollId);
+        }
+    }
+
 
     // Given a full text and a list of responses, return a list of spans with the responses highlighted
     const highlightResponses = (fullText: string, responses: Response[]) => {
@@ -135,6 +175,32 @@ export function CompanyResults({ companies }: CompaniesProps) {
         }
     }
 
+    function onLoadSuccess({ numPages: nextNumPages }: { numPages: number }) {
+        setNumPages(nextNumPages);
+        setIsPDFLoading(false);
+    }
+
+    const scrollToPage = (givenPageNumber: number | undefined) => {
+        if (givenPageNumber === undefined) {
+            return;
+        }
+        if (viewerRef.current) {
+            const viewerNode = viewerRef.current;
+            const pageNode = viewerNode.querySelector(`div[data-page-number="${givenPageNumber}"]`) as HTMLElement;
+            if (pageNode) {
+                viewerNode.scrollTop = pageNode.offsetTop;
+            }
+        }
+    };
+    
+    const handleScroll = () => {
+        if (viewerRef.current) {
+            const viewerNode = viewerRef.current;
+            const currentPageNumber = Math.ceil(viewerNode.scrollTop / window.innerHeight);
+            //setPageNumber(currentPageNumber);
+        }
+    };
+
     return (
         <>
             <Box sx={{ borderColor: 'divider', marginBottom: '10vh' }}>
@@ -156,7 +222,7 @@ export function CompanyResults({ companies }: CompaniesProps) {
                 </Tabs>
                 <div className='whole-company-result-wrapper'>
                     <div className='response-sidebar-wrapper'>
-                        {companies.length > 0 && <ResponseSidebar responses={companies[tab] ? companies[tab].responses : []} setFileTab={setFileTab} fileArray={fileArray} setScrollId={setScrollId}/>}
+                        {companies.length > 0 && <ResponseSidebar responses={companies[tab] ? companies[tab].responses : []} setFileTab={setFileTab} fileArray={fileArray} setScrollId={setScrollId} setPageNumber={setPageNumber} handleClickParent={handleSidebarClick}/>}
                     </div>
                     <div className='company-result-display'>
                         <div className="company-result-tabs">
@@ -178,14 +244,16 @@ export function CompanyResults({ companies }: CompaniesProps) {
                             })}
                             </Tabs>
                         </div>
-                        { companies[tab] && <div className="company-result">
-                        <Document file="./Atul - Annual Report - 7 July 2022.pdf">
-                            <Page pageNumber={1} />
-                        </Document>
-                        </div>}
-                        {/* {companies[tab] && <div className="company-result">
+                        {companies[tab] && pdfView ? <div className="company-result" ref={viewerRef} onScroll={handleScroll}>
+                            <Document file={pdfUrl} onLoadSuccess={onLoadSuccess}>
+                                {Array.from(new Array(numPages), (el, index) => (
+                                    <Page key={`page_${index + 1}`} pageNumber={index + 1} renderTextLayer={false}/>
+                                ))}
+                            </Document>
+                        </div> 
+                        : companies[tab] && <div className="company-result">
                             {highlightResponses(returnedFullText, companies[tab].responses)}
-                        </div>} */}
+                        </div>} 
                     </div>
                 </div>
             </Box>

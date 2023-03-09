@@ -6,6 +6,7 @@ export interface FilterState {
   companyOptions: string[];
   selectedCompanies: string[];
   summarize: boolean;
+  pdfView: boolean;
   status: 'idle' | 'loading' | 'failed';
 }
 
@@ -13,6 +14,7 @@ const initialState: FilterState = {
   companyOptions: [],
   selectedCompanies: [],
   summarize: false,
+  pdfView: true,
   status: 'idle',
 };
 
@@ -36,6 +38,10 @@ export const filterSlice = createSlice({
     changeSummarize: (state, action: PayloadAction<boolean>) => {
       console.log("summarize", action.payload)
       state.summarize = action.payload;
+    },
+    changePdfView: (state, action: PayloadAction<boolean>) => {
+      console.log("pdfView", action.payload)
+      state.pdfView = action.payload;
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -55,9 +61,10 @@ export const filterSlice = createSlice({
   },
 });
 
-export const { changeSelectedCompanies, changeSummarize } = filterSlice.actions;
+export const { changeSelectedCompanies, changeSummarize, changePdfView } = filterSlice.actions;
 export const companyOptions = (state: RootState) => state.filter.companyOptions;
 export const selectedCompanies = (state: RootState) => state.filter.selectedCompanies;
 export const selectSummarize = (state: RootState) => state.filter.summarize;
+export const selectPdfView = (state: RootState) => state.filter.pdfView;
 
 export default filterSlice.reducer;
