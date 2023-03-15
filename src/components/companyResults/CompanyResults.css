@@ -28,6 +28,12 @@
     max-height: 90vh;
 }
 
+.company-results-summary {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
 .highlight {
     background-color: #ffff99;
 }

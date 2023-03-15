@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CompaniesProps }  from '../companies/Companies';
 import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import { Document, Page, pdfjs } from 'react-pdf';
 import "react-pdf/dist/esm/Page/AnnotationLayer.css"
@@ -16,6 +19,7 @@ import { selectPdfView } from '../filter/filterSlice';
 import { CompanyProps, Response, getFileText } from '../company/Company';
 import { getURL } from '../../apis/routes';
 import { fullText } from 'components/companyProfile/companyProfileSlice';
+import { Tooltip } from '@mui/material';
 
 const tabsStyling = {
     "& button": { backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black', height: '100%'},
@@ -49,6 +53,14 @@ export function CompanyResults({ companies }: CompaniesProps) {
     };
     const returnedFileTexts = useAppSelector(fileTexts);
     const pdfView = useAppSelector(selectPdfView);
+
+    const getListOfSources = () => {
+        let sources = new Set<string>();
+        for (let i = 0; i < companies[tab].responses.length; i++) {
+            sources.add(companies[tab].responses[i].filename);
+        }
+        return Array.from(sources);
+    }
 
     useEffect(() => {
         pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -205,7 +217,34 @@ export function CompanyResults({ companies }: CompaniesProps) {
         <>
             <Box sx={{ borderColor: 'divider', marginBottom: '10vh' }}>
                 <div className='company-results-summary'>
-                    {companies.length > 0 && companies[tab] && companies[tab].summary !== "" && <h2>Summary: {companies[tab].summary}</h2>}
+                    {companies.length > 0 && companies[tab] && companies[tab].summary !== "" && 
+                        <Card>
+                            <CardContent sx={{backgroundColor: "rgb(236, 71, 85, 0.8)", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                                <Typography variant="h5" component="div" sx={{color: 'white'}}>
+                                    Quick Answer (In Beta)
+                                </Typography>
+                                <Tooltip title="This feature is still being tested" placement="right-start" arrow>
+                                    <ErrorOutlineIcon/>
+                                </Tooltip>
+                            </CardContent>
+                            <CardContent>
+                                <Typography variant="body2">
+                                    {companies[tab].summary}
+                                </Typography>
+                                <Typography variant="body2" sx={{marginTop: '20px'}}>
+                                    Sources:
+                                    {getListOfSources().map((source, index) => {
+                                        return (
+                                            <div key={index}>
+                                                {source}
+                                            </div>
+                                        )
+                                    })}
+
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    }
                 </div>
                 <Tabs 
                     value={tab} 
