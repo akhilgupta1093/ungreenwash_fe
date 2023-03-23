@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { apiGetAllTexts } from './companyProfileAPI';
+import { apiGetAllTexts } from './companyProfileAPIcopy';
 
 export interface BodyState {
   allTexts: {filename: string, text: string}[];
