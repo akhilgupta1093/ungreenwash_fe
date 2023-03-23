@@ -41,7 +41,7 @@ export function NewsScraper() {
 
     const [keyword, setKeyword] = React.useState("");
     const [country, setCountry] = React.useState("US");
-    const [smartFilter, setSmartFilter] = React.useState(false);
+    const [smartFilter, setSmartFilter] = React.useState(true);
     const [maxResults, setMaxResults] = React.useState(30);
     const [downloadWithSummaries, setDownloadWithSummaries] = React.useState(false);
 

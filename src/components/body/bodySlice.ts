@@ -51,7 +51,8 @@ export const bodySlice = createSlice({
 export const companyOptions = (state: RootState) => state.body.companyOptions;
 export const isLoadingState = (state: RootState) => (state.body.status === 'loading' || 
   state.company.status === 'loading' ||
-  state.newsScraper.status === 'loading');
+  state.newsScraper.status === 'loading') || 
+  state.companyResults.status === 'loading';
 export const baseQAs = (state: RootState) => state.body.baseQAs;
 
 export default bodySlice.reducer;

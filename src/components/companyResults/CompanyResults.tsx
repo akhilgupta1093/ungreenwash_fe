@@ -11,6 +11,7 @@ import { ResponseSidebar } from '../responseSidebar/ResponseSidebar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import EmailIcon from '@mui/icons-material/Email';
 
 import { Document, Page, pdfjs } from 'react-pdf';
 import "react-pdf/dist/esm/Page/AnnotationLayer.css"
@@ -20,6 +21,9 @@ import { CompanyProps, Response, getFileText } from '../company/Company';
 import { getURL } from '../../apis/routes';
 import { fullText } from 'components/companyProfile/companyProfileSlice';
 import { Tooltip } from '@mui/material';
+import { CoPresentOutlined } from '@mui/icons-material';
+
+import { selectSubject, selectBody, getEmailDraft } from './companyResultsSlice';
 
 const tabsStyling = {
     "& button": { backgroundColor: 'white', border: '1px solid rgb(236, 71, 85)', color: 'black', height: '100%'},
@@ -43,6 +47,9 @@ export function CompanyResults({ companies }: CompaniesProps) {
     const [fileTab, setFileTab] = React.useState(0);
     const [scrollId, setScrollId] = useState<string>("");
     const [isPDFLoading, setIsPDFLoading] = useState(true);
+
+    const subject = useAppSelector(selectSubject);
+    const body = useAppSelector(selectBody);
 
     const [returnedFullText, setReturnedFullText] = useState<string>("");
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -213,6 +220,19 @@ export function CompanyResults({ companies }: CompaniesProps) {
         }
     };
 
+    useEffect(() => {
+        if (companies[tab] && companies[tab].summary !== "") {
+            const subjectEncoded = encodeURIComponent(subject);
+            const bodyEncoded = encodeURIComponent(body);
+            const mailtoUrl = `mailto:?subject=${subjectEncoded}&body=${bodyEncoded}`;
+            window.open(mailtoUrl, '_blank');
+        }
+    }, [subject, body])
+      
+    const email = async () => {
+        dispatch(getEmailDraft({ 'company': companies[tab].company, 'summary': companies[tab].summary }))
+    };
+
     return (
         <>
             <Box sx={{ borderColor: 'divider', marginBottom: '10vh' }}>
@@ -223,9 +243,14 @@ export function CompanyResults({ companies }: CompaniesProps) {
                                 <Typography variant="h5" component="div" sx={{color: 'white'}}>
                                     Quick Answer (In Beta)
                                 </Typography>
-                                <Tooltip title="This feature is still being tested" placement="right-start" arrow>
-                                    <ErrorOutlineIcon/>
-                                </Tooltip>
+                                <div>
+                                    <Tooltip title="This feature is still being tested" placement="right-start" arrow sx={{marginRight: '10px'}}>
+                                        <ErrorOutlineIcon/>
+                                    </Tooltip>
+                                    <Tooltip title={"Contact " + companies[tab].company + " about this answer"} placement="right-start" arrow>
+                                        <EmailIcon onClick={email}/>
+                                    </Tooltip>
+                                </div>
                             </CardContent>
                             <CardContent>
                                 <Typography variant="body2">
