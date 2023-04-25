@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkphotic_ai=self.webpackChunkphotic_ai||[]).push([[674],{6674:function(t,n,u){u.r(n),u.d(n,{default:function(){return e.Z},getTypographyUtilityClass:function(){return i.f},typographyClasses:function(){return i.Z}});var e=u(2812),i=u(2663)}}]);
