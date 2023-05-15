@@ -13,7 +13,7 @@ export interface FilterState {
 const initialState: FilterState = {
   companyOptions: [],
   selectedCompanies: [],
-  summarize: true,
+  summarize: false,
   pdfView: true,
   status: 'idle',
 };
